@@ -1,23 +1,52 @@
-import logo from './logo.svg';
+import React, { useRef } from 'react';
 import './App.css';
+import Dashboard from './components/Dashboard';
+import Samples from './components/Samples';
+import Analytics from './components/Analytics';
+import Contact from './components/Contact';
 
 function App() {
+  const dashboardRef = useRef(null);
+  const samplesRef = useRef(null);
+  const analyticsRef = useRef(null);
+  const contactRef = useRef(null);
+
+  const scrollToSection = (ref) => {
+    ref.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className="header">
+        <div className="logo">
+          <i className="fas fa-water"></i>
+          <span>MarineBio AI</span>
+        </div>
+        <nav className="nav">
+          <button onClick={() => scrollToSection(dashboardRef)}>Dashboard</button>
+          <button onClick={() => scrollToSection(samplesRef)}>Samples</button>
+          <button onClick={() => scrollToSection(analyticsRef)}>Analytics</button>
+          <button onClick={() => scrollToSection(contactRef)}>Contact</button>
+        </nav>
       </header>
+
+      <main>
+        <section ref={dashboardRef}>
+          <Dashboard />
+        </section>
+        
+        <section ref={samplesRef}>
+          <Samples />
+        </section>
+        
+        <section ref={analyticsRef}>
+          <Analytics />
+        </section>
+        
+        <section ref={contactRef}>
+          <Contact />
+        </section>
+      </main>
     </div>
   );
 }
